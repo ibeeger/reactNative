@@ -50,12 +50,12 @@ class Lists extends Component {
 
   changeViewRows(){
     console.log("changeViewRows")
-    console.log(arguments);
+    // console.log(arguments);
 
   }
   EndReached(){
       console.log("EndReached")
-        console.log(arguments);
+        // console.log(arguments);
   }
 
   render(){
@@ -77,16 +77,8 @@ class Lists extends Component {
         />
       )
     }
-
   }
-  _genRows(pressData){
-      var dataBlob = [];
-     for (var ii = 0; ii < 100; ii++) {
-       var pressedText = pressData[ii] ? ' (X)' : '';
-       dataBlob.push('Cell ' + ii + pressedText);
-     }
-     return dataBlob;
-  }
+ 
   _renderRow(rowData,sectionID){
     var imgSource ="http://oss.files.ibeeger.com"+rowData.picurl;
     var name = rowData.name;

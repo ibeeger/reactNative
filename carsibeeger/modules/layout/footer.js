@@ -22,8 +22,10 @@ class Footer extends Component {
   constructor() {
     super();
     this.state = {
-
+      icons:["../../assets/home.png","../../assets/list.png","../../assets/shop.png","../../assets/help.png"],
+      names:["主页","列表","购物车","我的"]
     }
+    this.renderItem = this.renderItem;
   }
   componentDidMount(){
     //渲染之后执行
@@ -31,29 +33,41 @@ class Footer extends Component {
   showLayer(){
     console.log(arguments)
   }
-  render(){
-    return (<View style={styles.ViewFooter}>
-      <TouchableHighlight style={styles.touch} onPress={this.showLayer} underlayColor="#c00">
+
+  renderItem(item,i,_this){
+    var text = _this.state.names[i]
+    var pic = require(item) || require("../../assets/list.png");
+        console.log(pic+"k"+item)
+      return(
+          <TouchableHighlight style={styles.touch} key={i} onPress={this.props.changePage} underlayColor="#c00">
             <View style={styles.cell}>
             <Image
              style={styles.icon}
-             source={require('../../assets/home.png')}
+             source={pic}
            />
-           <Text style={styles.text}>主页</Text>
+           <Text style={styles.text}>{text}</Text>
             </View>
             </TouchableHighlight>
+        )
+  }
 
-            <TouchableHighlight style={styles.touch} onPress={this.showLayer} underlayColor="#0c0">
-            <View style={styles.cell}>
-                <Image
-                 style={styles.icon}
-                  source={require('../../assets/list.png')}
-               />
-               <Text style={styles.text}>列表</Text>
-            </View>
-            </TouchableHighlight>
+   
+
+  render(){
+    var _this = this;
+    var icons = this.state.icons;
+    var rows = []
+        icons.forEach(function (item,i) {
+          rows.push(_this.renderItem(item,i,_this));
+        })
+    return (<View style={styles.ViewFooter}>
+          {
+           rows 
+          }
       </View>)
   }
+
+
 }
 
 var styles = StyleSheet.create({

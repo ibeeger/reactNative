@@ -30,6 +30,11 @@ class carsibeeger extends Component {
   componentDidMount(){
     StatusBar.setHidden(true)
   }
+
+  changePage(){
+    console.log(1);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -38,7 +43,7 @@ class carsibeeger extends Component {
          <View style={styles.Content}>
           <Lists style={styles.list} />
          </View>
-         <Footer style={styles.Footer} />
+         <Footer style={styles.Footer} changePage={this.changePage} />
       </View>
     );
   }
