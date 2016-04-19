@@ -24,8 +24,7 @@ class Footer extends Component {
     this.state = {
       icons:[require("../../assets/home.png"),require("../../assets/list.png"),require("../../assets/shop.png"),require("../../assets/help.png")],
       names:["主页","列表","购物车","我的"],
-      cur:0,
-      load:this.props.loading || false
+      cur:0
     }
     this.renderItem = this.renderItem;
     this.changePage = this.changePage.bind(this);
@@ -35,9 +34,7 @@ class Footer extends Component {
   }
 
   componentWillReceiveProps(next){
-    this.setState({
-      load:next.load
-    })
+   
   }
 
   changePage(i){

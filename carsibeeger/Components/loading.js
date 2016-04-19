@@ -12,14 +12,18 @@ import React,{
 } from "react-native"
 
 class Loading extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+
+    this.state = {
+       text:this.props.text || "数据加载中..."
+    }
   }
   render(){
     return(
         <View style={styles.bgmain}>
           <View style={styles.loading}>
-            <Text style={styles.text}>数据加载中...</Text>
+            <Text style={styles.text}>{this.state.text}</Text>
           </View>
        </View>
     )

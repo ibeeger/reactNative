@@ -28,44 +28,58 @@ class carsibeeger extends Component {
     this.state = {
       name:"交通信息标志",
       datatype:"qita",
-      load:false
+      load:false,
+      connect:true,
     }
     this.changePage = this.changePage.bind(this);
     this.fetchData = this.fetchData.bind(this);
-    // this._handleReachabilityChange = this._handleReachabilityChange.bind(this);
+    this._handleReachabilityChange = this._handleReachabilityChange.bind(this);
   }
    _handleReachabilityChange(arg){
-    if (arg != "None") {
-      console.log("ok");
+
+    if (arg.toLocaleLowerCase() == "none") {
       this.setState({
-        name:"交通信息标志"
+        name:"离线状态",
+        connect:false,
+        load:false
       })
-      this.fetchData(this.state.datatype)
     }else{
-      console.log("err");
       this.setState({
-        name:"当前离线状态"
-      })
-    };
+        name:"交通信息标志",
+        connect:true
+      });
+      this.fetchData(this.state.datatype);
+    }
     
+  }
+
+  componentWillUnmount() {
+    NetInfo.removeEventListener(
+        'change',
+        this._handleReachabilityChange
+    );
   }
 
   componentDidMount(){
     StatusBar.setHidden(true);
-     this.changePage(0);
-    //   NetInfo.fetch().done(
-    //     (reachability) => { NetInfo.addEventListener("change",_this._handleReachabilityChange);}
-    // );
+    NetInfo.addEventListener(
+        'change',
+         this._handleReachabilityChange
+    );
   }
 
   fetchData(t){
-    this.setState({
-      load:false
-    })
+     this.setState({
+      load:false,
+      datatype:t
+    });
+    if (!this.state.connect) {
+      return ;
+    }
     fetch(url+t)
       .then((response) => response.json())
       .then((responseData) => {
-      var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({
           dataSource: ds.cloneWithRows(responseData.arr),
           load: true,
@@ -93,7 +107,7 @@ class carsibeeger extends Component {
   }
 
   render() {
-     let main = <Loading />
+     let main = <Loading text={this.state.name} />;
     if (this.state.load) {
         main = <Lists style={styles.list} dataSource={this.state.dataSource} />
     }
