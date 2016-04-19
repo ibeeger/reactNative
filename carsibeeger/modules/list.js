@@ -16,67 +16,47 @@ import Loading from '../Components/loading.js'
 import ListItemCol from '../Components/list_item_col.js'
 import ListItemRow from '../Components/list_item_row.js'  //<ListItemRow pic="http://www.itjuzi.com/images/2bffc9e937163e875b6bf80fae945cb6.png" title="标题文案" desc="描述文案" />
 
-const url = "http://api.ibeeger.com/driving/info/0?type=qita";
 
 class Lists extends Component {
-  constructor() {
-    super()
-
+  constructor(props) {
+    super(props)
     this.state = {
-      dataSource:[],
+      dataSource: this.props.dataSource || [],
       load:false
     }
   }
 
   componentDidMount(){
 
-    this.fetchData()
-
   }
 
-  fetchData(){
-    fetch(url)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData.arr);
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.setState({
-          dataSource: ds.cloneWithRows(responseData.arr),
-          load: true,
-        });
-      })
-      .done();
+  componentWillReceiveProps(next){
+    this.refs["list"].scrollTo({x:0,y:0,animated:false})
   }
+
+  
 
   changeViewRows(){
     console.log("changeViewRows")
-    // console.log(arguments);
-
   }
   EndReached(){
       console.log("EndReached")
-        // console.log(arguments);
   }
 
   render(){
-    if (!this.state.load) {
-        return(
-          <Loading />
-        )
-    }else{
+   
       return (
         <ListView
         initialListSize={6}
         pageSize={6}
         onChangeVisibleRows={this.changeViewRows}
         onEndReached={this.EndReached}
-
+        ref="list"
         contentContainerStyle={styles.list}
-          dataSource={this.state.dataSource}
+          dataSource={this.props.dataSource}
           renderRow={this._renderRow}
         />
       )
-    }
   }
  
   _renderRow(rowData,sectionID){

@@ -8,10 +8,9 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  TouchableHighlight,
-  Image,
-  StatusBar,
   ListView,
+  NetInfo,
+  StatusBar,
   View
 } from 'react-native';
 
@@ -21,29 +20,87 @@ import Footer from './modules/layout/footer.js'
 import Loading from './Components/loading.js'
 import Lists  from './modules/list.js'
 
+const url = "http://api.ibeeger.com/driving/info/0?type=";
 
 class carsibeeger extends Component {
   constructor(){
     super()
-
+    this.state = {
+      name:"交通信息标志",
+      datatype:"qita",
+      load:false
+    }
+    this.changePage = this.changePage.bind(this);
+    this._handleReachabilityChange = this._handleReachabilityChange.bind(this);
   }
+   _handleReachabilityChange(arg){
+    if (arg) {
+      this.setState({
+        name:"交通信息标志"
+      })
+      this.fetchData(this.state.datatype)
+    }else{
+      this.setState({
+        name:"当前离线状态"
+      })
+    }
+  }
+
   componentDidMount(){
-    StatusBar.setHidden(true)
+    StatusBar.setHidden(true);
+     this.changePage(0);
+      NetInfo.isConnected.addEventListener("change",this._handleReachabilityChange)
   }
 
-  changePage(){
-    console.log(1);
+  fetchData(t){
+    this.setState({
+      load:false
+    })
+    fetch(url+t)
+      .then((response) => response.json())
+      .then((responseData) => {
+        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+          dataSource: ds.cloneWithRows(responseData.arr),
+          load: true,
+        });
+      })
+      .catch((error)=>{
+        console.log("error")
+      })
+      .done();
+  }
+
+  changePage(i){
+    let datatype = "qita";
+    switch(i){
+      case 1:
+      datatype = "zhishi";
+      break;
+      case 2:
+      datatype = "jinggao";
+      break;
+      case 3:
+      datatype = "zhilu";
+      break;
+      default:
+      datatype = "qita";
+    };
+    this.fetchData(datatype);
   }
 
   render() {
+     let main = <Loading />
+    if (this.state.load) {
+        main = <Lists style={styles.list} dataSource={this.state.dataSource} />
+    }
     return (
       <View style={styles.container}>
-
-         <Header style={styles.Header} title="标题标题标题标题标题标题" />
+         <Header style={styles.Header} title={this.state.name} />
          <View style={styles.Content}>
-          <Lists style={styles.list} />
+          {main}
          </View>
-         <Footer style={styles.Footer} changePage={this.changePage} />
+         <Footer style={styles.Footer} changePage={this.changePage} loading={this.state.load} />
       </View>
     );
   }

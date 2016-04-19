@@ -15,7 +15,6 @@ var width = Dimensions.get('window').width/2,height=Dimensions.get('window').hei
 
 const picw = parseInt(width*0.8);
 
-console.log(picw);
 
 class ListItemCol extends Component {
   constructor() {
@@ -30,7 +29,7 @@ class ListItemCol extends Component {
       return(<TouchableHighlight onPress={() => this._pressRow(url)} activeOpacity={0.9}>
             <View style={styles.row}>
               <Image style={styles.thumb} source={{uri:url}} />
-              <Text style={styles.text}>
+              <Text style={styles.text}  numberOfLines={1}>
                 {text}
               </Text>
             </View>
