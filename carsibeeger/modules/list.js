@@ -37,7 +37,7 @@ class Lists extends Component {
   
 
   changeViewRows(){
-    
+
   }
   EndReached(){
   }
@@ -67,13 +67,7 @@ class Lists extends Component {
   }
 }
 
-var hashCode = function(str) {
-  var hash = 15;
-  for (var ii = str.length - 1; ii >= 0; ii--) {
-    hash = ((hash << 5) - hash) + str.charCodeAt(ii);
-  }
-  return hash;
-};
+ 
 
 const styles = StyleSheet.create({
   list: {

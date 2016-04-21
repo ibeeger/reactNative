@@ -12,13 +12,16 @@ import React, {
   NetInfo,
   StatusBar,
   View
+  
 } from 'react-native';
+
 
 
 import Header from './modules/layout/header.js'
 import Footer from './modules/layout/footer.js'
 import Loading from './Components/loading.js'
 import Lists  from './modules/list.js'
+import Index  from './modules/index.js'
 
 const url = "http://api.ibeeger.com/driving/info/0?type=";
 
@@ -164,4 +167,5 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('carsibeeger', () => carsibeeger);
+// AppRegistry.registerComponent('carsibeeger', () => carsibeeger);
+ AppRegistry.registerComponent('carsibeeger', () => Index);
