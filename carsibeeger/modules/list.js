@@ -37,10 +37,9 @@ class Lists extends Component {
   
 
   changeViewRows(){
-    console.log("changeViewRows")
+    
   }
   EndReached(){
-      console.log("EndReached")
   }
 
   render(){

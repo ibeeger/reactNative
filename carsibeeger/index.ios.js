@@ -31,25 +31,48 @@ class carsibeeger extends Component {
       load:false
     }
     this.changePage = this.changePage.bind(this);
+    this.fetchData = this.fetchData.bind(this);
     this._handleReachabilityChange = this._handleReachabilityChange.bind(this);
   }
    _handleReachabilityChange(arg){
-    if (arg) {
+    if (arg.toLocaleLowerCase() == "none") {
       this.setState({
-        name:"交通信息标志"
+        name:"离线状态",
+        connect:false,
+        load:false
       })
-      this.fetchData(this.state.datatype)
     }else{
       this.setState({
-        name:"当前离线状态"
-      })
+        name:"交通信息标志",
+        connect:true
+      });
+      this.fetchData(this.state.datatype);
     }
+    
   }
 
-  componentDidMount(){
+ componentWillUnmount() {
+    NetInfo.removeEventListener(
+        'change',
+        this._handleReachabilityChange
+    );
+  }
+
+  componentDidMount() {
     StatusBar.setHidden(true);
-     this.changePage(0);
-      NetInfo.isConnected.addEventListener("change",this._handleReachabilityChange)
+    NetInfo.addEventListener(
+      'change',
+      this._handleReachabilityChange
+    );
+    NetInfo.fetch().done((arg) => {
+      if (arg.toLocaleLowerCase() != "none") {
+        this.setState({
+          name: "交通信息标志",
+          connect: true
+        });
+        this.fetchData(this.state.datatype);
+      }
+    });
   }
 
   fetchData(t){

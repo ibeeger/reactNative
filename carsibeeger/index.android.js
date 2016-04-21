@@ -66,6 +66,15 @@ class carsibeeger extends Component {
         'change',
          this._handleReachabilityChange
     );
+    NetInfo.fetch().done((arg) => {
+      if (arg.toLocaleLowerCase() != "none") {
+        this.setState({
+          name: "交通信息标志",
+          connect: true
+        });
+        this.fetchData(this.state.datatype);
+      }
+    });
   }
 
   fetchData(t){
