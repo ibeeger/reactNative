@@ -65,13 +65,13 @@ class Index extends Component {
           </View>
 
          <View style={styles.adbox}>
-            <View style={styles.adview}>
+            <View style={styles.adview1}>
                 <Image
                   style={styles.adimage}
                   source={{uri: 'http://works.ibeeger.com/imgfile/3d/5.jpg'}}
                 />
             </View>
-            <View  style={styles.adview}>
+            <View  style={styles.adview2}>
                 <Image
                   style={styles.adimage}
                   source={{uri: 'http://works.ibeeger.com/imgfile/adx.png'}}
@@ -93,10 +93,19 @@ var styles = StyleSheet.create({
 
      backgroundColor:"#f0f0f0"
   },
-  adview:{
+  adview1:{
     height:90,
     flex:1,
-    margin:5
+    margin:1,
+    padding:2,
+  },
+  adview2:{
+    height:90,
+    flex:1,
+    margin:1,
+    paddingTop:2,
+    paddingRight:2,
+    paddingBottom:2
   },
   adimage:{
     height:90,
