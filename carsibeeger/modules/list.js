@@ -12,6 +12,7 @@ import React,{
   ListView
 } from "react-native"
 
+
 import Loading from '../Components/loading.js'
 import ListItemCol from '../Components/list_item_col.js'
 import ListItemRow from '../Components/list_item_row.js'  //<ListItemRow pic="http://www.itjuzi.com/images/2bffc9e937163e875b6bf80fae945cb6.png" title="标题文案" desc="描述文案" />
@@ -27,7 +28,7 @@ class Lists extends Component {
   }
 
   componentDidMount(){
-
+   
   }
 
   componentWillReceiveProps(next){
