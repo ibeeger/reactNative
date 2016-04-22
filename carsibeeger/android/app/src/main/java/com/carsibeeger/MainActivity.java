@@ -1,6 +1,7 @@
 package com.carsibeeger;
 
 import com.facebook.react.ReactActivity;
+import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
@@ -27,6 +28,8 @@ public class MainActivity extends ReactActivity {
         return BuildConfig.DEBUG;
     }
 
+
+
     /**
      * A list of packages used by the app. If the app uses additional views
      * or modules besides the default ones, add more packages here.
@@ -34,7 +37,14 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
-            new MainReactPackage()
+            new MainReactPackage(),
+            new CodePush("yEpdbG8c6tL9lqK9o7VNp7YFj7UGNy6bTdflZ", this, BuildConfig.DEBUG)
         );
     }
+
+    @Override
+    protected String getJSBundleFile() {
+        return CodePush.getBundleUrl();
+    }
+
 }

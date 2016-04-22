@@ -13,11 +13,14 @@ import React, {
   NetInfo,
   View
 } from 'react-native';
+import codePush from 'react-native-code-push'
+
 
 import Header from './modules/layout/header.js'
 import Footer from './modules/layout/footer.js'
 import Loading from './Components/loading.js'
 import Lists  from './modules/list.js'
+
 
 const url = "http://api.ibeeger.com/driving/info/0?type=";
 
@@ -26,7 +29,7 @@ class carsibeeger extends Component {
   constructor(){
     super()
     this.state = {
-      name:"交通信息标志",
+      name:"交通标志",
       datatype:"qita",
       load:false,
       connect:true,
@@ -45,7 +48,7 @@ class carsibeeger extends Component {
       })
     }else{
       this.setState({
-        name:"交通信息标志",
+        name:"交通标志",
         connect:true
       });
       this.fetchData(this.state.datatype);
@@ -61,6 +64,13 @@ class carsibeeger extends Component {
   }
 
   componentDidMount(){
+    codePush.sync({
+       updateDialog: {
+        appendReleaseDescription: true,
+        descriptionPrefix: "\n\nChange log:\n"   
+       },
+       installMode: codePush.InstallMode.IMMEDIATE
+    });
     StatusBar.setHidden(true);
     NetInfo.addEventListener(
         'change',
@@ -69,7 +79,7 @@ class carsibeeger extends Component {
     NetInfo.fetch().done((arg) => {
       if (arg.toLocaleLowerCase() != "none") {
         this.setState({
-          name: "交通信息标志",
+          name: "交通信息",
           connect: true
         });
         this.fetchData(this.state.datatype);
