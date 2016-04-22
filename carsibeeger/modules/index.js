@@ -30,56 +30,64 @@ class Index extends Component {
 		}
 	}
 
-
-
 	render(){
-		return(<View style={styles.wrapper}>
-		   <Swiper style={styles.con} showsButtons={false}>
-		        <View style={styles.slide1}>
-		          <Text style={styles.text}>Hello Swiper</Text>
-		        </View>
-		        <View style={styles.slide2}>
-		          <Text style={styles.text}>Beautiful</Text>
-		        </View>
-		        <View style={styles.slide3}>
-		          <Text style={styles.text}>And simple</Text>
-		        </View>
-		      </Swiper>
-		      </View>)
+		return(
+    
+      <ScrollView
+      alwaysBounceVertical={false}
+        contentContainerStyle={styles.scrollView}
+        style={styles.scrollView}>
+       <Swiper style={styles.con} showsButtons={false} height={200}>
+            <View style={styles.slide1}>
+              <Text style={styles.text}>Hello Swiper</Text>
+            </View>
+            <View style={styles.slide2}>
+              <Text style={styles.text}>Beautiful</Text>
+            </View>
+            <View style={styles.slide3}>
+              <Text style={styles.text}>And simple</Text>
+            </View>
+          </Swiper>
+          <View style={styles.main}>
+             <View style={styles.navbox}>
+                
+             </View>
+          </View>
+      </ScrollView>
+    
+   )
 	}
 }
 
-
-
 var styles = StyleSheet.create({
 	scrollView:{
-		flex:1,
-		width:width,
-		height:height
+		flex:1
 	},
 	main:{
 		flex:1
 	},
 	con:{
+    height:200,
+    overflow:"hidden"
 	},
   wrapper: {
-  	height:150,
+  	flex:1,
   	backgroundColor:"#cccccc"
   },
   slide1: {
-  	height:150,
+  	flex:1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#9DD6EB',
   },
   slide2: {
-    height:150,
+    flex:1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#97CAE5',
   },
   slide3: {
-    height:150,
+    flex:1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#92BBD9',
