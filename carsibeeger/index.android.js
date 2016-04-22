@@ -61,7 +61,7 @@ class carsibeeger extends Component {
   }
 
   componentDidMount(){
-    StatusBar.setHidden(true);
+    StatusBar.setHidden(false);
     NetInfo.addEventListener(
         'change',
          this._handleReachabilityChange
