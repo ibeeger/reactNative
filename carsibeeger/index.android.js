@@ -13,13 +13,9 @@ import React, {
   NetInfo,
   View
 } from 'react-native';
-import codePush from 'react-native-code-push'
 
-
-import Header from './modules/layout/header.js'
-import Footer from './modules/layout/footer.js'
-import Loading from './Components/loading.js'
-import Lists  from './modules/list.js'
+import Index from "./modules/index.js";
+import Footer from "./modules/layout/footer.js";
 
 
 const url = "http://api.ibeeger.com/driving/info/0?type=";
@@ -28,66 +24,26 @@ const url = "http://api.ibeeger.com/driving/info/0?type=";
 class carsibeeger extends Component {
   constructor(){
     super()
-    this.state = {
-      name:"交通标志",
-      datatype:"qita",
-      load:false,
-      connect:true,
-    }
     this.changePage = this.changePage.bind(this);
-    this.fetchData = this.fetchData.bind(this);
-    this._handleReachabilityChange = this._handleReachabilityChange.bind(this);
   }
-   _handleReachabilityChange(arg){
-
-    if (arg.toLocaleLowerCase() == "none") {
-      this.setState({
-        name:"离线状态",
-        connect:false,
-        load:false
-      })
-    }else{
-      this.setState({
-        name:"交通标志",
-        connect:true
-      });
-      this.fetchData(this.state.datatype);
-    }
-    
-  }
+   
 
   componentWillUnmount() {
-    NetInfo.removeEventListener(
-        'change',
-        this._handleReachabilityChange
-    );
+    
   }
 
   componentDidMount(){
     StatusBar.setHidden(false);
-    NetInfo.addEventListener(
-        'change',
-         this._handleReachabilityChange
-    );
-    NetInfo.fetch().done((arg) => {
-      if (arg.toLocaleLowerCase() != "none") {
-        this.setState({
-          name: "交通信息",
-          connect: true
-        });
-        this.fetchData(this.state.datatype);
-      }
-    });
+    
+
+  }
+
+  changePage(i){
+    console.log(i);
   }
 
   fetchData(t){
-     this.setState({
-      load:false,
-      datatype:t
-    });
-    if (!this.state.connect) {
-      return ;
-    }
+     
     fetch(url+t)
       .then((response) => response.json())
       .then((responseData) => {
@@ -99,56 +55,22 @@ class carsibeeger extends Component {
       })
       .done();
   }
-
-  changePage(i){
-    let datatype = "qita";
-    switch(i){
-      case 1:
-      datatype = "zhishi";
-      break;
-      case 2:
-      datatype = "jinggao";
-      break;
-      case 3:
-      datatype = "zhilu";
-      break;
-      default:
-      datatype = "qita";
-    };
-    this.fetchData(datatype);
-  }
-
   render() {
-     let main = <Loading text={this.state.name} />;
-    if (this.state.load) {
-        main = <Lists style={styles.list} dataSource={this.state.dataSource} />
-    }
-    return (
-      <View style={styles.container}>
-         <Header style={styles.Header} title={this.state.name} />
-         <View style={styles.Content}>
-          {main}
-         </View>
-         <Footer style={styles.Footer} changePage={this.changePage} loading={this.state.load} />
-      </View>
-    );
+     return (
+        <View style={styles.container}>
+           <Index style={styles.Content} />
+           <Footer style={styles.Footer} changePage={this.changePage} />
+        </View>
+      )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
-    backgroundColor: '#fff',
-  },
-  loading:{
-    position:"absolute",
-    left:0,
-    top:0,
-    flex:1,
-    right:0,
-    bottom:0,
-    backgroundColor:"#999"
+    justifyContent: 'space-between',
+    flexDirection:"column",
+    backgroundColor: '#fff'
   },
   Content:{
     flex:1

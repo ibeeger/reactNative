@@ -7,6 +7,7 @@ import React, {
   Text,
   View,
   ScrollView,
+  ListView,
   Dimensions,
   TouchableOpacity,
   ViewPagerAndroid,
@@ -42,7 +43,7 @@ let styles = StyleSheet.create({
 
   pagination_x: {
     position: 'absolute',
-    bottom: 15,
+    bottom: 25,
     left: 0,
     right: 0,
     flexDirection: 'row',
@@ -307,6 +308,8 @@ module.exports = React.createClass({
     let diff = (this.props.loop ? 1 : 0) + index + this.state.index
     let x = 0
     let y = 0
+    console.log(this.refs);
+
     if(state.dir == 'x') x = diff * state.width
     if(state.dir == 'y') y = diff * state.height
     this.refs.scrollView && this.refs.scrollView.scrollTo(y, x)

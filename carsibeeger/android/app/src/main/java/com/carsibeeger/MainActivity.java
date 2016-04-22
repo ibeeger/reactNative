@@ -1,7 +1,6 @@
 package com.carsibeeger;
 
 import com.facebook.react.ReactActivity;
-import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
@@ -37,14 +36,8 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-            new CodePush("yEpdbG8c6tL9lqK9o7VNp7YFj7UGNy6bTdflZ", this, BuildConfig.DEBUG)
+            new MainReactPackage()
         );
-    }
-
-    @Override
-    protected String getJSBundleFile() {
-        return CodePush.getBundleUrl();
     }
 
 }
