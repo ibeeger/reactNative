@@ -31,7 +31,7 @@ class ListItemRow extends Component {
     console.log("pressItem")
   }
   render(){
-    var url = this.props.pic,title = this.props.title,desc = this.props.desc;
+    var url = this.props.pic,title = this.props.name,desc = this.props.desc;
     return (
        <TouchableHighlight onPress={this.pressItem} activeOpacity={0.9}>
             <View style={styles.Item}>

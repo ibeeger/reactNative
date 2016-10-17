@@ -21,7 +21,7 @@ var height = Dimensions.get('window').height;
 import Swiper from 'react-native-page-swiper'
 
 
-import Header from './layout/header.js'
+
 import Navbox from "../Components/navbox.js"
 
 
@@ -38,7 +38,6 @@ class Index extends Component {
 	render(){
 		return(
     <View style={styles.body}>
-    <Header style={styles.Header} title={this.state.name} />
     <View style={styles.main}>
       <ScrollView 
       automaticallyAdjustContentInsets={false}

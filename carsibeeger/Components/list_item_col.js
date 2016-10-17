@@ -24,6 +24,7 @@ class ListItemCol extends Component {
     console.log(url)
   }
   render(){
+    console.log(this.props.pic);
     var url = this.props.pic,text = this.props.text;
     if (url) {
       return(<TouchableHighlight onPress={() => this._pressRow(url)} activeOpacity={0.9}>

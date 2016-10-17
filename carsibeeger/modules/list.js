@@ -16,11 +16,12 @@ import React,{
 import Loading from '../Components/loading.js'
 import ListItemCol from '../Components/list_item_col.js'
 import ListItemRow from '../Components/list_item_row.js'  //<ListItemRow pic="http://www.itjuzi.com/images/2bffc9e937163e875b6bf80fae945cb6.png" title="标题文案" desc="描述文案" />
-
+//http://omm.oss-cn-beijing.aliyuncs.com/cars/logos/57535.gif
 
 class Lists extends Component {
   constructor(props) {
     super(props)
+    console.log(props);
     this.state = {
       dataSource: this.props.dataSource || [],
       load:false
@@ -60,7 +61,7 @@ class Lists extends Component {
   }
  
   _renderRow(rowData,sectionID){
-    var imgSource ="http://oss.files.ibeeger.com"+rowData.picurl;
+    var imgSource ="http://omm.oss-cn-beijing.aliyuncs.com/cars/pngs/"+rowData.brandPic+".png";
     var name = rowData.name;
     return (
        <ListItemCol pic={imgSource} text={name} />

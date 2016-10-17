@@ -2,7 +2,7 @@
 * @Author: willclass
 * @Date:   2016-04-14 10:55:05
 * @Last Modified by:   ibeeger
-* @Last Modified time: 2016-04-22 16:59:33
+* @Last Modified time: 2016-10-13 18:49:16
 */
 
 'use strict';
@@ -23,7 +23,7 @@ class Footer extends Component {
     super(props);
     this.state = {
       icons:[require("../../assets/home.png"),require("../../assets/list.png"),require("../../assets/shop.png"),require("../../assets/help.png")],
-      names:["主页","列表","购物车","我的"],
+      names:["主页","品牌","经销商","我的"],
       cur:0
     }
     this.renderItem = this.renderItem;
